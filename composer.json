@@ -1,12 +1,12 @@
 {
-    "name": "oaklabs/phalcon-throttler",
+    "name": "crazyfactory/phalcon-throttler",
     "description": "Rate limiter PHP Phalcon Framework.",
     "keywords": ["phalcon", "rate limiter", "throttler"],
     "license": "MIT",
     "authors": [
         {
-            "name": "OakLabs GmbH",
-            "email": "development@oak-labs.com"
+            "name": "Crazyfactory",
+            "email": "dacgray@gmail.com"
         }
     ],
     "require": {
