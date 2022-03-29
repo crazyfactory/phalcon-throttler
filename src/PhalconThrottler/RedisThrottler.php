@@ -95,7 +95,7 @@ class RedisThrottler implements ThrottlerInterface
         // Compute Last Update
         $newLastUpdate = min(
             time(),
-            $bucket['last_update'] + $refillCount * $this->config['refill_time']
+            ($bucket['last_update'] ?? 0) + $refillCount * $this->config['refill_time']
         );
 
         // Update Redis
@@ -136,7 +136,7 @@ class RedisThrottler implements ThrottlerInterface
     }
 
     /**
-     * Refull the bucket and return the new value.
+     * Refill the bucket and return the new value.
      *
      * @param array $bucket
      * @return array
@@ -144,13 +144,13 @@ class RedisThrottler implements ThrottlerInterface
     protected function refillBucket(array $bucket): array
     {
         // Check the refill count
-        $refillCount = (int)floor((time() - $bucket['last_update']) / $this->config['refill_time']);
+        $refillCount = (int)floor((time() - ($bucket['last_update'] ?? 0)) / $this->config['refill_time']);
 
         // Refill the bucket
         return [
             'new_value' => min(
                 $this->config['bucket_size'],
-                $bucket['value'] + $refillCount * $this->config['refill_amount']
+                ($bucket['value'] ?? 0) + $refillCount * $this->config['refill_amount']
             ),
             'refill_count' => $refillCount
         ];
